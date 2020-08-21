@@ -4,9 +4,11 @@ class AccessPlanos {
 
   const JSON_PATH = PLANOS_JSON_PATH;
 
+  private static $instance = null; 
+
   private $planos_handler;
 
-  public function __construct() {
+  private function __construct() {
     try {
       $this->planos_handler = new AccessEntries(self::JSON_PATH);
     }
@@ -30,5 +32,16 @@ class AccessPlanos {
 
   public function check_plano_exists($codigo) {
     return $this->planos_handler->check_entry_exists($codigo);
+  }
+
+
+
+  public static function get_instance() {
+    if (self::$instance === null) {
+      // throws exception
+      self::$instance = new self;
+    }
+    
+    return self::$instance;
   }
 }

@@ -22,7 +22,7 @@
             
             <div class="content-fields">
               <select>
-                <!-- <option value="opcao">Opção</option> -->
+                <?php ?>
               </select>
     
               <div class="beneficiarios js-beneficiarios">

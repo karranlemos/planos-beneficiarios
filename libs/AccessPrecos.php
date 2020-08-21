@@ -4,9 +4,11 @@ class AccessPrecos {
 
   const JSON_PATH = PRECOS_JSON_PATH;
 
+  private static $instance = null; 
+
   private $precos_handler;
 
-  public function __construct() {
+  private function __construct() {
     try {
       $this->precos_handler = new AccessEntries(self::JSON_PATH);
     }
@@ -30,5 +32,16 @@ class AccessPrecos {
 
   public function check_preco_exists($codigo) {
     return $this->precos_handler->check_entry_exists($codigo);
+  }
+
+
+
+  public static function get_instance() {
+    if (self::$instance === null) {
+      // throws exception
+      self::$instance = new self;
+    }
+    
+    return self::$instance;
   }
 }
