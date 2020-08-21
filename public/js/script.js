@@ -166,7 +166,7 @@ class FormGeraPlano {
             var json = JSON.parse(jsonString)
         }
         catch {
-            // Invalid JSON syntax
+            this.showErrorMessage("Server error: couldn't parse data")
             return
         }
 
@@ -205,6 +205,8 @@ class FormGeraPlano {
     }
 
     toggleFormResults() {
+        this.eraseErrorMessages()
+        
         if (this.form.classList.contains('hidden')) {
             this.form.classList.remove('hidden')
             this.resultsContainer.classList.add('hidden')
