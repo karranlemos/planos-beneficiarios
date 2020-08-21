@@ -55,10 +55,18 @@ class BeneficiariosLoader {
 
 class FormGeraPlano {
 
-    constructor(form) {
-        if (!form.classList.contains('js-gera-plano'))
+    constructor(formContainer) {
+        if (!formContainer.classList.contains('js-gera-plano'))
             throw "Element isn't of class 'js-gera-plano'"
-        this.form = form
+        this.formContainer = formContainer
+
+        this.form = this.formContainer.querySelector('form')
+        if (!this.form)
+            throw "'form' not found"
+        
+        this.resultsSection = this.formContainer.querySelector('section.js-results')
+        if (!this.resultsSection)
+            throw "'section.js-results' not found"
 
         this.selectCodigo = this.form.querySelector('select[name=plano-codigo]')
         if (!this.selectCodigo)
@@ -110,12 +118,66 @@ class FormGeraPlano {
         request.onload = function() {
             if (request.status !== 200)
                 return
-            console.log(request.responseText)
-        }
+            this.showResults(request.responseText)
+        }.bind(this)
 
         request.open('post', '/index.php?rest=calcula-plano')        
         request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         request.send(dataJSON)
+    }
+
+    showResults(jsonString) {
+        try {
+            var json = JSON.parse(jsonString)
+        }
+        catch {
+            // Invalid JSON syntax
+        }
+
+        if (json.precoTotal === undefined || json.precosBeneficiarios === undefined)
+            return
+        if (!Array.isArray(json.precosBeneficiarios))
+            return
+        
+        var html = `<p>Preço total: ${json.precoTotal}</p><ul>`
+        for (let precosBeneficiario of json.precosBeneficiarios) {
+            html += `
+                <li>Nome: ${precosBeneficiario.nome}</li>
+                <li>Idade: ${precosBeneficiario.idade}</li>
+                <li>Preço: ${precosBeneficiario.preco}</li>
+            `
+        }
+        html += `</ul>`
+        html += `<button class="primary">Go back to the form.</button>`
+
+        this.populateResultSection(html)
+        this.toggleFormResults()
+        this.form.reset()
+    }
+
+    populateResultSection(html) {
+        while (this.resultsSection.firstChild)
+            this.resultsSection.removeChild(this.resultsSection.firstChild)
+
+        this.resultsSection.insertAdjacentHTML('afterbegin', html)
+
+        var button = this.resultsSection.querySelector('button')
+        if (!button)
+            return
+        button.addEventListener('click', function() {
+            this.toggleFormResults()
+        }.bind(this))
+    }
+
+    toggleFormResults() {
+        if (this.form.classList.contains('hidden')) {
+            this.form.classList.remove('hidden')
+            this.resultsSection.classList.add('hidden')
+        }
+        else {
+            this.form.classList.add('hidden')
+            this.resultsSection.classList.remove('hidden')
+        }
     }
 
 

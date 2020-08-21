@@ -17,8 +17,11 @@
 
       <header><h1>Bitix Test - crie seu plano!</h1></header>
         
-        <div class="form-container">
-          <form action="" method="post" class="js-gera-plano gera-plano full-length">
+        <div class="form-container js-gera-plano">
+
+          <section class="hidden js-results"></section>
+
+          <form action="" method="post" class="gera-plano full-length">
             
             <div class="content-fields">
               <select name="plano-codigo">

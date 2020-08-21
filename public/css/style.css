@@ -24,6 +24,10 @@ button.secondary {
     color: white;
 }
 
+.hidden {
+    display: none !important;
+}
+
 
 
 .body-container {
