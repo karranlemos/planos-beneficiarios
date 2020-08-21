@@ -129,6 +129,8 @@ table.precos-individual-results {
 
 table.precos-individual-results th {
     white-space: nowrap;
+    min-width: 120px;
+    text-align: right;
 }
 
 table.precos-individual-results td {
@@ -137,6 +139,7 @@ table.precos-individual-results td {
 
 table.precos-individual-results th, table.precos-individual-results td {
     padding: 20px;
+    box-sizing: border-box;
 }
 
 table.precos-individual-results tr:nth-child(odd) {

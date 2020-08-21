@@ -175,7 +175,12 @@ class FormGeraPlano {
         if (!Array.isArray(json.precosBeneficiarios))
             return
         
-        var html = `<p>Preço total: ${json.precoTotal}</p>`
+        var html = `
+            <table class="precos-individual-results"><tr>
+                <th>Preço total</th>
+                <td>${json.precoTotal}</td>
+            </tr></table>
+        `
         for (let precosBeneficiario of json.precosBeneficiarios) {
             html += `
                 <table class="precos-individual-results">
