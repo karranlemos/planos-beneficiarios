@@ -45,6 +45,13 @@ class BeneficiariosLoader {
         this.currentBeneficiario = 0
     }
 
+    addKeyboardShortcut(callbackCheck, callbackDo) {
+        this.beneficiariosGrupos.addEventListener('keyup', function(e) {
+            if (callbackCheck(e))
+                callbackDo()
+        })
+    }
+
 
 
     static getAll() {
@@ -80,6 +87,15 @@ class FormGeraPlano {
         catch (e) {
             throw e
         }
+
+        this.formBeneficiarios.addKeyboardShortcut(
+            function(e) {
+                return e.key === 'Enter'
+            },
+            function() {
+                this.submitButton()
+            }.bind(this)
+        )
 
         this.messagesSection = this.formContainer.querySelector('.js-messages')
         if (!this.messagesSection)
