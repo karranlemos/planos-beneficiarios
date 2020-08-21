@@ -78,7 +78,7 @@ $proposta_array = [
   'precosBeneficiarios' => $beneficiados_precos
 ];
 
-JSONHelper::createFileJSON($form_data_array, __ROOT__.'/data-output/beneficiarios.json');
-JSONHelper::createFileJSON($proposta_array, __ROOT__.'/data-output/proposta.json');
+JSONHelper::createFileJSON($form_data_array, __ROOT__.'/public/files/data-output/beneficiarios.json');
+JSONHelper::createFileJSON($proposta_array, __ROOT__.'/public/files/data-output/proposta.json');
 
 Helpers::return_http_message(200, json_encode($proposta_array, JSON_UNESCAPED_UNICODE ), 'aplication/json');
