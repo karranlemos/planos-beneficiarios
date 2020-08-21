@@ -1,0 +1,14 @@
+:root {
+
+    --primary-color: #6c3779;
+    --secondary-color: #6c5fa7;
+    
+
+    --floating-container-bg-color: #827ba1;
+    --floating-content-bg-color: rgb(248, 248, 248);
+
+    --button-primary-bg-color: var(--primary-color);
+    --button-secondary-bg-color: var(--secondary-color);
+
+    --floating-content-fieldset-bg-color: rgb(235, 235, 235);
+}
