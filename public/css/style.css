@@ -1,9 +1,23 @@
 @import 'vars.css';
 @import 'fonts.css';
 
+html, body, button, input, select {
+    font-family: 'Noto Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 html, body {
     margin: 0;
     padding: 0;
+
+    font-size: 15px;
+}
+
+select {
+    font-size: 13px;
+}
+
+input {
+    font-size: 14px;
 }
 
 button {
@@ -33,7 +47,7 @@ button.secondary {
     color: var(--error-message-box-color);
     
     width: 100%;
-    min-height: 80px;
+    min-height: 50px;
     box-sizing: border-box;
 
     margin-bottom: 10px;
