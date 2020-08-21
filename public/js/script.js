@@ -24,14 +24,18 @@ class BeneficiariosLoader {
 
     addNewBeneficiario() {
         var newBeneficiarioNumber = ++this.currentBeneficiario
-        var html = `
-          <div class="form-group beneficiario js-beneficiario">
+        var html = 
+        `<div class="form-group beneficiario js-beneficiario">
             <h2>Beneficiário ${newBeneficiarioNumber}</h2>
             <input type="text" class="js-nome-beneficiario" placeholder="Nome">
             <input type="number" class="js-idade-beneficiario" placeholder="Idade" min="0">
-          </div>
-        `
+          </div>`
         this.beneficiariosGrupos.insertAdjacentHTML('beforeend', html)
+
+        var firstInput = this.beneficiariosGrupos.lastChild.querySelector('input')
+        if (!firstInput)
+            return
+        firstInput.focus()
     }
 
     resetBeneficiarios() {
@@ -187,15 +191,14 @@ class FormGeraPlano {
         if (!Array.isArray(json.precosBeneficiarios))
             return
         
-        var html = `
-            <table class="precos-individual-results"><tr>
+        var html = 
+            `<table class="precos-individual-results"><tr>
                 <th>Preço total</th>
                 <td>${json.precoTotal}</td>
-            </tr></table>
-        `
+            </tr></table>`
         for (let precosBeneficiario of json.precosBeneficiarios) {
-            html += `
-                <table class="precos-individual-results">
+            html += 
+                `<table class="precos-individual-results">
                 <tr>
                     <th>Nome</th>
                     <td>${precosBeneficiario.nome}</td>
@@ -208,19 +211,17 @@ class FormGeraPlano {
                     <th>Preço</th>
                     <td>${precosBeneficiario.preco}</td>
                 </tr>
-                </table>
-            `
+                </table>`
         }
-        html += `
-            <div class="results-download-buttons">
+        html += 
+            `<div class="results-download-buttons">
                 <a href="/public/files/data-output/beneficiarios.json" onclick="$event.preventDefault()" download>
                     <button class="secondary">Download beneficiarios.json</button>
                 </a>
                 <a href="/public/files/data-output/proposta.json" onclick="$event.preventDefault()" download>
                     <button class="secondary">Download proposta.json</button>
                 </a>
-            </div>
-        `
+            </div>`
 
         this.populateResultSection(html)
         this.toggleFormResults()
