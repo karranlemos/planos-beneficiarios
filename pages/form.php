@@ -21,8 +21,10 @@
           <form action="" method="post" class="js-gera-plano gera-plano full-length">
             
             <div class="content-fields">
-              <select>
-                <?php ?>
+              <select name="plano-codigo">
+                <?php foreach (AccessPlanos::get_instance()->get_planos() as $plano):?>
+                    <option value="<?=$plano->codigo?>"><?=$plano->nome?></option>
+                <?php endforeach; ?>
               </select>
     
               <div class="beneficiarios js-beneficiarios">

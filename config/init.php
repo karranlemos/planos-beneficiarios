@@ -17,4 +17,16 @@ foreach (LIBS_OBJECTS as $lib_object)
 
 
 
+// Create singletons so exceptions don't get
+// thrown later.
+try {
+  AccessPlanos::get_instance();
+  AccessPrecos::get_instance();
+}
+catch (Exception $e) {
+  echo $e->getMessage();
+}
+
+
+
 require_once __ROOT__.'/pages/form.php';
