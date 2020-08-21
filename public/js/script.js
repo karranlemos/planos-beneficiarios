@@ -36,6 +36,7 @@ class BeneficiariosLoader {
         if (!firstInput)
             return
         firstInput.focus()
+        firstInput.scrollIntoView()
     }
 
     resetBeneficiarios() {
