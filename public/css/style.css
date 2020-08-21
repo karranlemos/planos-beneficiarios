@@ -27,6 +27,10 @@ button.secondary {
 
 
 .body-container {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+
     box-sizing: border-box;
     padding: 10px;
 
@@ -42,7 +46,6 @@ button.secondary {
 
     max-width: 1000px;
     width: 100%;
-    margin: 0 auto;
 
     background-color: var(--floating-content-bg-color);
 }
@@ -59,7 +62,6 @@ form.full-length {
 .form-container {
     max-width: 600px;
     width: 100%;
-    height: 100%;
     margin: 0 auto;
 }
 
