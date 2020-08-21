@@ -31,11 +31,13 @@
           <form action="" method="post" class="gera-plano full-length">
             
             <div class="content-fields">
-              <select name="plano-codigo">
-                <?php foreach (AccessPlanos::get_instance()->get_planos() as $plano):?>
-                    <option value="<?=$plano->codigo?>"><?=$plano->nome?></option>
-                <?php endforeach; ?>
-              </select>
+              <div class="form-group">
+                <select name="plano-codigo">
+                  <?php foreach (AccessPlanos::get_instance()->get_planos() as $plano):?>
+                      <option value="<?=$plano->codigo?>"><?=$plano->nome?></option>
+                  <?php endforeach; ?>
+                </select>
+              </div>
     
               <div class="beneficiarios js-beneficiarios">
                 <div class="beneficiarios-grupos js-beneficiarios-grupos"></div>

@@ -107,13 +107,13 @@ form.gera-plano button.add::before {
     content: '+';
 }
 
-form.gera-plano .beneficiario {
+form.gera-plano .form-group {
     margin: 10px 0;
     padding: 14px;
     background-color: var(--floating-content-fieldset-bg-color);
 }
 
-form.gera-plano .beneficiario h2 {
+form.gera-plano .form-group h2 {
     margin: 0 0 10px 0;
     font-size: 20px;
 }

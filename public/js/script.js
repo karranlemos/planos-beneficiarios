@@ -25,7 +25,7 @@ class BeneficiariosLoader {
     addNewBeneficiario() {
         var newBeneficiarioNumber = ++this.currentBeneficiario
         var html = `
-          <div class="beneficiario js-beneficiario">
+          <div class="form-group beneficiario js-beneficiario">
             <h2>Beneficiário ${newBeneficiarioNumber}</h2>
             <input type="text" class="js-nome-beneficiario" placeholder="Nome">
             <input type="number" class="js-idade-beneficiario" placeholder="Idade" min="0">
