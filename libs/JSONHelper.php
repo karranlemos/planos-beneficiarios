@@ -19,7 +19,7 @@ class JSONHelper {
   }
 
   public static function createFileJSON($array, $path) {
-    $json_string = json_encode($array);
+    $json_string = json_encode($array, JSON_UNESCAPED_UNICODE);
     if ($json_string === false)
       throw new Exception("Couldn't encode JSON");
 

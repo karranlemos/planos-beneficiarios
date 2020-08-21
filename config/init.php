@@ -10,6 +10,7 @@ define('PRECOS_JSON_PATH', __ROOT__.'/data/precos.json');
 
 const LIBS_OBJECTS = [
   'JSONHelper', 'AccessEntries', 'AccessPlanos', 'AccessPrecos',
+  'Helpers',
 ];
 
 foreach (LIBS_OBJECTS as $lib_object)
@@ -28,5 +29,9 @@ catch (Exception $e) {
 }
 
 
-
-require_once __ROOT__.'/pages/form.php';
+if (isset($_GET['rest']) && $_GET['rest'] === 'calcula-plano') {
+  require_once __ROOT__.'/pages/rest/calcula-plano.php';
+}
+else {
+  require_once __ROOT__.'/pages/form.php';
+}

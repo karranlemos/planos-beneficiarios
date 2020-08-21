@@ -17,21 +17,32 @@ class AccessPrecos {
     }
   }
 
-  public function get_precos() {
-    return $this->precos_handler->get_entries();
+  public function get_precos($codigo=null) {
+    if ($codigo !== null)
+      return $this->precos_handler->get_entries(['codigo'=>$codigo]);
+    else
+      return $this->precos_handler->get_entries();
   }
 
-  public function get_preco($codigo) {
-    try {
-      $this->precos_handler->get_entry($codigo);
-    }
-    catch (Exception $e) {
-      throw $e;
-    }
+  public function get_preco($codigo, $minimo_vidas) {
+    return $this->precos_handler->get_entry($codigo, [
+      "minimo_vidas" => $minimo_vidas
+    ]);
   }
 
-  public function check_preco_exists($codigo) {
-    return $this->precos_handler->check_entry_exists($codigo);
+  public function get_preco_greatest_minimo_vidas($codigo, $beneficiados) {
+    $precos = $this->get_precos($codigo);
+    $greatest_minimo_vidas_under_beneficiados = 0;
+    $precos_object = false;
+    foreach ($precos as $preco) {
+      if ($preco->minimo_vidas < $greatest_minimo_vidas_under_beneficiados)
+        continue;
+      if ($preco->minimo_vidas > $beneficiados)
+        continue;
+      $greatest_minimo_vidas_under_beneficiados = $preco->minimo_vidas;
+      $precos_object = $preco;
+    }
+    return $precos_object;
   }
 
 

@@ -22,12 +22,7 @@ class AccessPlanos {
   }
 
   public function get_plano($codigo) {
-    try {
-      $this->planos_handler->get_entry($codigo);
-    }
-    catch (Exception $e) {
-      throw $e;
-    }
+    return $this->planos_handler->get_entry($codigo);
   }
 
   public function check_plano_exists($codigo) {

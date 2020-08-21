@@ -2,38 +2,81 @@
 
 class AccessEntries {
 
-private $entries;
+  private $entries;
+  private $codigos;
 
-public function __construct($json_path) {
-  try {
-    $entries_array = JSONHelper::parseFileJSON($json_path);
+  public function __construct($json_path) {
+    try {
+      $this->entries = JSONHelper::parseFileJSON($json_path, true, 512, );
+    }
+    catch (Exception $e) {
+      throw $e;
+    }
+
+    $this->codigos = [];
+    foreach ($this->entries as $entry) {
+      if (isset($entry->codigo))
+        $this->codigos[$entry->codigo] = true;
+    }
   }
-  catch (Exception $e) {
-    throw $e;
+
+  public function get_entries($args=[]) {
+    if ($args !== null && !is_array($args))
+      throw new InvalidArgumentException('provided args must be an array.');
+
+    $entries = [];
+    foreach ($this->entries as $entry) {
+
+      $arg_not_found = false;
+      foreach ($args as $key => $value) {
+        if (!isset($entry->$key))
+          continue;
+        if ($entry->$key === $value)
+          continue;
+        
+        $arg_not_found = true;
+        break;
+      }
+
+      if ($arg_not_found)
+        continue;
+
+      $entries[] = clone($entry);
+    }
+    return $entries;
   }
 
-  $this->entries = [];
-  foreach ($entries_array as $entry) {
-    $this->entries[$entry->codigo] = $entry;
+  public function get_entry($codigo, $args=[]) {
+    if ($args !== null && !is_array($args))
+      throw new InvalidArgumentException('provided args must be an array.');
+
+    foreach ($this->entries as $entry) {
+      if ($entry->codigo !== $codigo)
+        continue;
+      
+      $arg_not_found = false;
+      foreach ($args as $key => $value) {
+        if (!isset($entry->$key))
+          continue;
+        if ($entry->$key === $value)
+          continue;
+        
+        $arg_not_found = true;
+        break;
+      }
+
+      if ($arg_not_found)
+        continue;
+      
+      return clone($entry);
+    }
+
+    return false;
   }
-}
 
-public function get_entries() {
-  $entries = [];
-  foreach ($this->entries as $entry) {
-    $entries[] = clone($entry);
+
+
+  public function check_entry_exists($codigo) {
+    return isset($this->codigos[$codigo]);
   }
-  return $entries;
-}
-
-public function get_entry($codigo) {
-  if ($this->check_entry_exists($codigo))
-    throw new Exception(sprintf("Code '%s' doesn't exist", $codigo));
-  
-  return clone($this->entries[$codigo]);
-}
-
-public function check_entry_exists($codigo) {
-  return isset($this->entries[$codigo]);
-}
 }
