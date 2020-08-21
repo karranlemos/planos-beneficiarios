@@ -15,6 +15,11 @@ if (!is_array($json->beneficiarios)) {
   Helpers::return_http_message(422, "'beneficiarios' must be an array");
 }
 
+$number_beneficiarios = count($json->beneficiarios);
+if($number_beneficiarios === 0) {
+  Helpers::return_http_message(422, "At least one 'beneficiario' must be provided");
+}
+
 foreach ($json->beneficiarios as $beneficiario) {
   if (!isset($beneficiario->nome) || !isset($beneficiario->idade)) {
     Helpers::return_http_message(
@@ -35,7 +40,6 @@ foreach ($json->beneficiarios as $beneficiario) {
 
 $planos = AccessPlanos::get_instance();
 $precos = AccessPrecos::get_instance();
-$number_beneficiarios = count($json->beneficiarios);
 
 if (!$planos->check_plano_exists($json->codigoPlano)) {
   Helpers::return_http_message(422, "Plano doesn't exist");

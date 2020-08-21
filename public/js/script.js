@@ -28,7 +28,7 @@ class BeneficiariosLoader {
           <div class="beneficiario js-beneficiario">
             <h2>Beneficiário ${newBeneficiarioNumber}</h2>
             <input type="text" class="js-nome-beneficiario" placeholder="Nome">
-            <input type="number" class="js-idade-beneficiario" placeholder="Idade">
+            <input type="number" class="js-idade-beneficiario" placeholder="Idade" min="0">
           </div>
         `
         this.beneficiariosGrupos.insertAdjacentHTML('beforeend', html)
@@ -64,9 +64,15 @@ class FormGeraPlano {
         if (!this.form)
             throw "'form' not found"
         
-        this.resultsSection = this.formContainer.querySelector('section.js-results')
+        this.resultsContainer = this.formContainer.querySelector('section.js-results-container')
+        if (!this.resultsContainer)
+            throw "'section.js-results-container' not found"
+        this.resultsSection = this.resultsContainer.querySelector('section.js-results')
         if (!this.resultsSection)
             throw "'section.js-results' not found"
+        this.backToFormButton = this.formContainer.querySelector('section.js-results-buttons button.js-back-to-form')
+            if (!this.backToFormButton)
+                throw "'section.js-results-buttons' not found"
 
         this.selectCodigo = this.form.querySelector('select[name=plano-codigo]')
         if (!this.selectCodigo)
@@ -76,14 +82,24 @@ class FormGeraPlano {
         if (!this.beneficiariosGrupos)
             throw "'js-beneficiarios-grupos' not found"
         
+
+
         this.buttonSubmit = this.form.querySelector('button.js-submit')
         if (!this.buttonSubmit)
             throw "Button 'js-submit-button' not found"
         this.buttonSubmit.addEventListener('click', this.submitButton.bind(this))
+
+        this.backToFormButton.addEventListener('click', this.toggleFormResults.bind(this))
     }
 
     submitButton() {
-        var dataArray = this.organizeData()
+        try {
+            var dataArray = this.organizeData()
+        }
+        catch (e) {
+            console.log(e)
+            return
+        }
         var dataJSON = JSON.stringify(dataArray)
         
         this.sendToServer(dataJSON)
@@ -93,14 +109,19 @@ class FormGeraPlano {
         var beneficiariosDivs = this.beneficiariosGrupos.querySelectorAll('.js-beneficiario')
         var beneficiariosArray = []
         for (let beneficiarioDiv of beneficiariosDivs) {
-            let nome = beneficiarioDiv.querySelector('.js-nome-beneficiario')
-            let idade = beneficiarioDiv.querySelector('.js-idade-beneficiario')
-            if (!nome || !idade)
+            let nomeElement = beneficiarioDiv.querySelector('.js-nome-beneficiario')
+            let idadeElement = beneficiarioDiv.querySelector('.js-idade-beneficiario')
+            if (!nomeElement || !idadeElement)
                 continue
+            let nome = nomeElement.value
+            let idade = idadeElement.value
+
+            // throws exception if invalid
+            this.validateBeneficiario(nome, idade)
             
             beneficiariosArray.push({
-                nome: nome.value,
-                idade: idade.value
+                nome: nome,
+                idade: idade
             })
         }
 
@@ -110,6 +131,15 @@ class FormGeraPlano {
         }
 
         return planoObj
+    }
+
+    validateBeneficiario(nome, idade) {
+        if (nome === '')
+            throw 'Nomes não podem estar vazios.'
+        if (!/^\-{0,1}\d+$/.test(idade))
+            throw 'Idade deve ser um número inteiro.'
+        if (parseInt(idade, 10) < 0)
+            throw 'Idade deve ser maior ou igual a zero.'
     }
 
     sendToServer(dataJSON) {
@@ -132,6 +162,7 @@ class FormGeraPlano {
         }
         catch {
             // Invalid JSON syntax
+            return
         }
 
         if (json.precoTotal === undefined || json.precosBeneficiarios === undefined)
@@ -148,7 +179,6 @@ class FormGeraPlano {
             `
         }
         html += `</ul>`
-        html += `<button class="primary">Go back to the form.</button>`
 
         this.populateResultSection(html)
         this.toggleFormResults()
@@ -172,11 +202,11 @@ class FormGeraPlano {
     toggleFormResults() {
         if (this.form.classList.contains('hidden')) {
             this.form.classList.remove('hidden')
-            this.resultsSection.classList.add('hidden')
+            this.resultsContainer.classList.add('hidden')
         }
         else {
             this.form.classList.add('hidden')
-            this.resultsSection.classList.remove('hidden')
+            this.resultsContainer.classList.remove('hidden')
         }
     }
 

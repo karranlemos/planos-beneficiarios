@@ -19,7 +19,12 @@
         
         <div class="form-container js-gera-plano">
 
-          <section class="hidden js-results"></section>
+          <section class="hidden js-results-container">
+            <section class="js-results"></section>
+            <section class="js-results-buttons">
+              <button class="primary js-back-to-form">Back To Form</button>
+            </section>
+          </section>
 
           <form action="" method="post" class="gera-plano full-length">
             
