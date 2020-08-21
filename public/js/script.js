@@ -199,6 +199,16 @@ class FormGeraPlano {
                 </table>
             `
         }
+        html += `
+            <div class="results-download-buttons">
+                <a href="/public/files/data-output/beneficiarios.json" onclick="$event.preventDefault()" download>
+                    <button class="secondary">Download beneficiarios.json</button>
+                </a>
+                <a href="/public/files/data-output/proposta.json" onclick="$event.preventDefault()" download>
+                    <button class="secondary">Download proposta.json</button>
+                </a>
+            </div>
+        `
 
         this.populateResultSection(html)
         this.toggleFormResults()
@@ -210,13 +220,6 @@ class FormGeraPlano {
             this.resultsSection.removeChild(this.resultsSection.firstChild)
 
         this.resultsSection.insertAdjacentHTML('afterbegin', html)
-
-        var button = this.resultsSection.querySelector('button')
-        if (!button)
-            return
-        button.addEventListener('click', function() {
-            this.toggleFormResults()
-        }.bind(this))
     }
 
     toggleFormResults() {

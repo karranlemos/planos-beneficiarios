@@ -23,7 +23,7 @@
 
           <section class="hidden js-results-container">
             <section class="js-results"></section>
-            <section class="js-results-buttons">
+            <section class="js-results-buttons results-buttons">
               <button class="primary js-back-to-form">Back To Form</button>
             </section>
           </section>

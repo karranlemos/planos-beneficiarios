@@ -148,3 +148,19 @@ table.precos-individual-results tr:nth-child(odd) {
 table.precos-individual-results tr:nth-child(even) {
     background-color: rgb(226, 226, 226);
 }
+
+.results-buttons button.primary {
+    width: 100%;
+}
+
+.results-download-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+
+    margin: 10px 0;
+}
+
+.results-download-buttons button.secondary {
+    width: 100%;
+}
