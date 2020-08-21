@@ -119,6 +119,8 @@ form.gera-plano {
 
 form.gera-plano button.add::before {
     content: '+';
+    font-size: 23px;
+
 }
 
 form.gera-plano .form-group {
