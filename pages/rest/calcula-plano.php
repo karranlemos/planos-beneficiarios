@@ -22,12 +22,10 @@ foreach ($json->beneficiarios as $beneficiario) {
       "All objects in 'beneficiarios' must be in the format {\"nome\": ..., \"idade\": ...}"
     );
   }
-  try {
-    $beneficiario->idade = (int) $beneficiario->idade;
-  }
-  catch (Exception $e) {
+  if (!is_numeric($beneficiario->idade)) {
     Helpers::return_http_message(422, "Idade must be an integer");
   }
+  $beneficiario->idade = (int) $beneficiario->idade;
   if ($beneficiario->idade < 0) {
     Helpers::return_http_message(422, "Idade must be greater than 0");
   }
@@ -44,6 +42,10 @@ if (!$planos->check_plano_exists($json->codigoPlano)) {
 }
 
 $precos_idades = $precos->get_preco_greatest_minimo_vidas($json->codigoPlano, $number_beneficiarios);
+if (!$precos_idades) {
+  Helpers::return_http_message(422, "There is no plan for this number of people.");
+}
+
 $preco_total = 0.00;
 $beneficiados_precos = [];
 foreach ($json->beneficiarios as $beneficiario) {

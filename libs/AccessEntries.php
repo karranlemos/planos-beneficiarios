@@ -37,10 +37,10 @@ class AccessEntries {
         $arg_not_found = true;
         break;
       }
-
+      
       if ($arg_not_found)
         continue;
-
+    
       $entries[] = clone($entry);
     }
     return $entries;

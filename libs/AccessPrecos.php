@@ -18,8 +18,8 @@ class AccessPrecos {
   }
 
   public function get_precos($codigo=null) {
-    if ($codigo !== null)
-      return $this->precos_handler->get_entries(['codigo'=>$codigo]);
+    if ($codigo !== null && is_numeric($codigo))
+      return $this->precos_handler->get_entries(['codigo'=>(int)$codigo]);
     else
       return $this->precos_handler->get_entries();
   }
@@ -42,6 +42,7 @@ class AccessPrecos {
       $greatest_minimo_vidas_under_beneficiados = $preco->minimo_vidas;
       $precos_object = $preco;
     }
+    
     return $precos_object;
   }
 
