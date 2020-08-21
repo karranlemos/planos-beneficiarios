@@ -11,4 +11,7 @@
     --button-secondary-bg-color: var(--secondary-color);
 
     --floating-content-fieldset-bg-color: rgb(235, 235, 235);
+
+    --error-message-box-bg-color: rgb(85, 0, 0);
+    --error-message-box-color: white;
 }

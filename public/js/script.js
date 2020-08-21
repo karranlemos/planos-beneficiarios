@@ -44,7 +44,7 @@ class BeneficiariosLoader {
                 loaders.push(new BeneficiariosLoader(loaderElement))
             }
             catch (e) {
-                console.log(e)
+                console.log('BeneficiariosLoader: '+e)
             }
         }
         return loaders
@@ -63,6 +63,10 @@ class FormGeraPlano {
         this.form = this.formContainer.querySelector('form')
         if (!this.form)
             throw "'form' not found"
+
+        this.messagesSection = this.formContainer.querySelector('.js-messages')
+        if (!this.messagesSection)
+            throw "'js-messages' not found"
         
         this.resultsContainer = this.formContainer.querySelector('section.js-results-container')
         if (!this.resultsContainer)
@@ -93,11 +97,12 @@ class FormGeraPlano {
     }
 
     submitButton() {
+        this.eraseErrorMessages()
         try {
             var dataArray = this.organizeData()
         }
         catch (e) {
-            console.log(e)
+            this.showErrorMessage(e)
             return
         }
         var dataJSON = JSON.stringify(dataArray)
@@ -210,6 +215,19 @@ class FormGeraPlano {
         }
     }
 
+    showErrorMessage(message, goToTop=true) {
+        var html = `<div class="error-message-box">${message}</div>`
+        this.messagesSection.insertAdjacentHTML('beforeend', html)
+
+        if (goToTop)
+            window.scrollTo(0, 0)
+    }
+
+    eraseErrorMessages() {
+        while (this.messagesSection.firstChild)
+            this.messagesSection.removeChild(this.messagesSection.firstChild)
+    }
+
 
 
     static getAll() {
@@ -219,8 +237,8 @@ class FormGeraPlano {
             try {
                 geraPlanos.push(new FormGeraPlano(geraPlanoForm))
             }
-            catch {
-                continue
+            catch (e) {
+                console.log('FormGeraPlano: '+e)
             }
         }
         return geraPlanos

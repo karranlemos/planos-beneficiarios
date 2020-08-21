@@ -19,6 +19,8 @@
         
         <div class="form-container js-gera-plano">
 
+          <section class="js-messages"></section>
+
           <section class="hidden js-results-container">
             <section class="js-results"></section>
             <section class="js-results-buttons">
