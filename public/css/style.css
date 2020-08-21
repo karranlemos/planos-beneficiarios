@@ -81,7 +81,7 @@ form.full-length {
     margin: 0 auto;
 }
 
-form.full-length input, form.full-length button {
+form.full-length input, form.full-length button, form.full-length select {
     width: 100%;
     margin: 5px 0;
     border: 0;
@@ -90,6 +90,10 @@ form.full-length input, form.full-length button {
 form.full-length input {
     box-sizing: border-box;
     height: 50px;
+    padding: 10px;
+}
+
+form.full-length select {
     padding: 10px;
 }
 
