@@ -34,6 +34,12 @@ class BeneficiariosLoader {
         this.beneficiariosGrupos.insertAdjacentHTML('beforeend', html)
     }
 
+    resetBeneficiarios() {
+        while (this.beneficiariosGrupos.firstChild)
+            this.beneficiariosGrupos.removeChild(this.beneficiariosGrupos.firstChild)
+        this.currentBeneficiario = 0
+    }
+
 
 
     static getAll() {
@@ -63,6 +69,12 @@ class FormGeraPlano {
         this.form = this.formContainer.querySelector('form')
         if (!this.form)
             throw "'form' not found"
+        try {
+            this.formBeneficiarios = new BeneficiariosLoader(this.form.querySelector('.js-beneficiarios'))
+        }
+        catch (e) {
+            throw e
+        }
 
         this.messagesSection = this.formContainer.querySelector('.js-messages')
         if (!this.messagesSection)
@@ -232,6 +244,9 @@ class FormGeraPlano {
         else {
             this.form.classList.add('hidden')
             this.resultsContainer.classList.remove('hidden')
+
+            this.formBeneficiarios.resetBeneficiarios()
+            this.formBeneficiarios.addNewBeneficiario()
         }
     }
 
@@ -268,6 +283,5 @@ class FormGeraPlano {
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    BeneficiariosLoader.getAll()
     FormGeraPlano.getAll()
 })
