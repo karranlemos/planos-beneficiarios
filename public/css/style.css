@@ -26,33 +26,41 @@ button.secondary {
 
 
 
-.floating-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.body-container {
+    box-sizing: border-box;
+    padding: 10px;
 
-    height: 100vh;
+    min-height: 100vh;
     width: 100%;
 
     background-color: var(--floating-container-bg-color);
 }
 
-.floating-container .floating-content {
+.body-container .content {
     padding: 30px;
     box-sizing: border-box;
 
-    max-height: 400px;
-    max-width: 600px;
+    max-width: 1000px;
     width: 100%;
-    height: 100%;
-    overflow-y: auto;
+    margin: 0 auto;
 
     background-color: var(--floating-content-bg-color);
+}
+
+.body-container .content h1 {
+    text-align: center;
 }
 
 form.full-length {
     width: 100%;
     height: 100%;
+}
+
+.form-container {
+    max-width: 600px;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
 }
 
 form.full-length input, form.full-length button {
@@ -78,6 +86,7 @@ form.gera-plano button.add::before {
 }
 
 form.gera-plano .beneficiario {
+    margin: 10px 0;
     padding: 14px;
     background-color: var(--floating-content-fieldset-bg-color);
 }
