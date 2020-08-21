@@ -46,7 +46,7 @@ class BeneficiariosLoader {
     }
 
     addKeyboardShortcut(callbackCheck, callbackDo) {
-        this.beneficiariosGrupos.addEventListener('keyup', function(e) {
+        this.beneficiariosGrupos.addEventListener('keydown', function(e) {
             if (callbackCheck(e))
                 callbackDo()
         })
