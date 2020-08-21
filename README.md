@@ -12,4 +12,6 @@ Para rodar o programa, utilize:
 php -S localhost:8000
 ```
 
-Ao enviar o formulário com os dados dos beneficiários, esses dados serão mostrados na página, além de dois botões que permitem o download dos JSONs *beneficiarios.json* e *proposta.json*.
+e acesse o site pelo navegador.
+
+Ao enviar o formulário com os dados dos beneficiários, além dos dados serem mostrados na página, dois botões que permitem o download dos JSONs *beneficiarios.json* e *proposta.json*, respectivamente, também serão.
