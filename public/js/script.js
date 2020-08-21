@@ -175,15 +175,25 @@ class FormGeraPlano {
         if (!Array.isArray(json.precosBeneficiarios))
             return
         
-        var html = `<p>Preço total: ${json.precoTotal}</p><ul>`
+        var html = `<p>Preço total: ${json.precoTotal}</p>`
         for (let precosBeneficiario of json.precosBeneficiarios) {
             html += `
-                <li>Nome: ${precosBeneficiario.nome}</li>
-                <li>Idade: ${precosBeneficiario.idade}</li>
-                <li>Preço: ${precosBeneficiario.preco}</li>
+                <table class="precos-individual-results">
+                <tr>
+                    <th>Nome</th>
+                    <td>${precosBeneficiario.nome}</td>
+                </tr>
+                <tr>
+                    <th>Idade</th>
+                    <td>${precosBeneficiario.idade}</td>
+                </tr>
+                <tr>
+                    <th>Preço</th>
+                    <td>${precosBeneficiario.preco}</td>
+                </tr>
+                </table>
             `
         }
-        html += `</ul>`
 
         this.populateResultSection(html)
         this.toggleFormResults()
