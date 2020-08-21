@@ -64,7 +64,7 @@ class FormGeraPlano {
         if (!this.selectCodigo)
             throw "'select[name=plano]' not found"
         
-        this.beneficiariosGrupos = this.form.querySelector('js-beneficiarios-grupos')
+        this.beneficiariosGrupos = this.form.querySelector('.js-beneficiarios-grupos')
         if (!this.beneficiariosGrupos)
             throw "'js-beneficiarios-grupos' not found"
         
@@ -82,17 +82,17 @@ class FormGeraPlano {
     }
 
     organizeData() {
-        var beneficiariosDivs = this.beneficiariosGrupos.querySelector('js-beneficiario')
+        var beneficiariosDivs = this.beneficiariosGrupos.querySelectorAll('.js-beneficiario')
         var beneficiariosArray = []
         for (let beneficiarioDiv of beneficiariosDivs) {
-            let nome = beneficiarioDiv.querySelector('js-nome-beneficiario')
-            let idade = beneficiarioDiv.querySelector('js-idade-beneficiario')
+            let nome = beneficiarioDiv.querySelector('.js-nome-beneficiario')
+            let idade = beneficiarioDiv.querySelector('.js-idade-beneficiario')
             if (!nome || !idade)
                 continue
             
             beneficiariosArray.push({
-                nome: nome,
-                idade: idade
+                nome: nome.value,
+                idade: idade.value
             })
         }
 
@@ -110,9 +110,10 @@ class FormGeraPlano {
         request.onload = function() {
             if (request.status !== 200)
                 return
+            console.log(request.responseText)
         }
 
-        request.open('post', '/pages/rest/calcula-plano.php')        
+        request.open('post', '/index.php?rest=calcula-plano')        
         request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         request.send(dataJSON)
     }
