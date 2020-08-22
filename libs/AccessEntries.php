@@ -7,7 +7,7 @@ class AccessEntries {
 
   public function __construct($json_path) {
     try {
-      $this->entries = JSONHelper::parseFileJSON($json_path, true, 512, );
+      $this->entries = JSONHelper::parseFileJSON($json_path, true, 512);
     }
     catch (Exception $e) {
       throw $e;
